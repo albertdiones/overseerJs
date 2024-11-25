@@ -9,25 +9,33 @@ export class ErrorHandlerService {
     errorHandlers: Array<any> = [];
 
 
-    watch(action: () => any) {
+    watch(action: () => Promise<any> | void) {
         try {
-            action();
-        }
-        catch (e) {
+            const result = action();
 
-            const error = typeof e === 'string'
+            if (result instanceof  Promise) {
+                result.catch( 
+                    e => this.handleError(e)
+                )
+            }
+        }
+        catch (e: string | Error) {
+            this.handleError(e);           
+        }
+    }
+
+    handleError(e: string | Error) {
+        const error = typeof e === 'string'
                 ? new Error(e)
                 : e;
 
-            this.errorHandlers.forEach(
-                (errorHandler) => {
-                    if (errorHandler.qualify(error)) {
-                        errorHandler.handle(error);
-                    }
+        this.errorHandlers.forEach(
+            (errorHandler) => {
+                if (errorHandler.qualify(error)) {
+                    errorHandler.handle(error);
                 }
-            );
-            
-        }
+            }
+        );
     }
 
     addErrorHandler(errorHandler: ErrorHandler) {
