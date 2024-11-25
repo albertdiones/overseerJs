@@ -2,7 +2,7 @@
 
 export class ErrorHandlerService {
 
-    errorHandler: Array<any> = [];
+    errorHandlers: Array<any> = [];
 
 
     watch(action: () => any) {
@@ -10,7 +10,7 @@ export class ErrorHandlerService {
             action();
         }
         catch (e) {
-            this.errorHandler.forEach(
+            this.errorHandlers.forEach(
                 (errorHandler) => {
                     errorHandler.handle(e);
                 }
@@ -20,6 +20,6 @@ export class ErrorHandlerService {
     }
 
     addErrorHandler(errorHandler:{}) {
-        this.errorHandler.push(errorHandler);
+        this.errorHandlers.push(errorHandler);
     }
 }
