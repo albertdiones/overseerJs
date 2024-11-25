@@ -12,7 +12,9 @@ export class ErrorHandlerService {
         catch (e) {
             this.errorHandlers.forEach(
                 (errorHandler) => {
-                    errorHandler.handle(e);
+                    if (errorHandler.qualify(e)) {
+                        errorHandler.handle(e);
+                    }
                 }
             );
             

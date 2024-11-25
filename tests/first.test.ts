@@ -31,6 +31,18 @@ test(
             }
         );
 
+        
+
+        errorHandlerService.addErrorHandler(
+            {
+                qualify: () => false,
+                handle: () => {
+                    console.log("LEFT POCKET DOG SHI")
+                    errorHandled = false;
+                }
+            }
+        );
+
       
         let actionExecuted = false;
         errorHandlerService.watch(
