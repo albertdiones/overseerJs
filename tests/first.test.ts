@@ -12,6 +12,15 @@ test(
 
         expect(errorHandlerService).not.toBeFalsy();
 
+        errorHandlerService.addErrorHandler(
+            {
+                qualify: () => true,
+                handle: () => {
+                    errorHandled = true;
+                }
+            }
+        );
+
       
         let actionExecuted = false;
         errorHandlerService.watch(
@@ -25,7 +34,7 @@ test(
 
         expect(actionExecuted).toBe(true);
 
-       //expect(errorHandled).toBe(true);
+        expect(errorHandled).toBe(true);
     }
 );
 
