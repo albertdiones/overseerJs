@@ -14,10 +14,15 @@ export class ErrorHandlerService {
             action();
         }
         catch (e) {
+
+            const error = typeof e === 'string'
+                ? new Error(e)
+                : e;
+
             this.errorHandlers.forEach(
                 (errorHandler) => {
-                    if (errorHandler.qualify(e)) {
-                        errorHandler.handle(e);
+                    if (errorHandler.qualify(error)) {
+                        errorHandler.handle(error);
                     }
                 }
             );
