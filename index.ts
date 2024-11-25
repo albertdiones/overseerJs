@@ -1,4 +1,8 @@
 
+export interface ErrorHandler {
+    qualify: (e: Error) => boolean;
+    handle: (e: Error) => void;
+}
 
 export class ErrorHandlerService {
 
@@ -21,7 +25,7 @@ export class ErrorHandlerService {
         }
     }
 
-    addErrorHandler(errorHandler:{}) {
+    addErrorHandler(errorHandler: ErrorHandler) {
         this.errorHandlers.push(errorHandler);
     }
 }

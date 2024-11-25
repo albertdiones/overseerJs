@@ -6,6 +6,9 @@
     "loop-test": "while true; do bun test --timeout=20000; sleep 5; done",
     "validate-ts": "tsc --noEmit --pretty --skipLibCheck"
   },
+  "dependencies": {
+    "add_event_driven": "https://github.com/albertdiones/add_event_driven.git"
+  },
   "devDependencies": {
       "@types/bun": "latest",
       "jest": "^29.7.0"
