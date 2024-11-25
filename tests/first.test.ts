@@ -12,6 +12,16 @@ test(
 
         expect(errorHandlerService).not.toBeFalsy();
 
+        
+        errorHandlerService.addErrorHandler(
+            {
+                qualify: () => true,
+                handle: () => {
+                    console.log("I HAVE NOTHING!!");
+                }
+            }
+        );
+
         errorHandlerService.addErrorHandler(
             {
                 qualify: () => true,

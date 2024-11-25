@@ -10,7 +10,12 @@ export class ErrorHandlerService {
             action();
         }
         catch (e) {
-            this.errorHandler[0].handle(e);
+            this.errorHandler.forEach(
+                (errorHandler) => {
+                    errorHandler.handle(e);
+                }
+            );
+            
         }
     }
 
