@@ -54,9 +54,6 @@ test(
                 throw "network_error: host cannot reached"
             }
         );
-        
-
-        await Bun.sleep(2000);
         expect(networkErrorHandled).toBe(true);
 
     }
