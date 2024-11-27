@@ -16,7 +16,7 @@ interface ErrorHandler {
    }
 }
 
-const errorHandlerService = new ErrorHandlerService();
+const overseer = new Overseer();
 
 candleNotUpdatingError = {
   qualify(e) {
@@ -27,10 +27,10 @@ candleNotUpdatingError = {
   }
 }
 
-errorHandlerService.addErrorHandler(candleNotUpdatingError);
+overseer.addErrorHandler(candleNotUpdatingError);
 
 
-errorHandlerService.watch(
+overseer.watch(
   () => // full root proces runs here
 );
 ```
