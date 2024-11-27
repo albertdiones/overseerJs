@@ -1,16 +1,29 @@
 
+import { Event, EventContainer } from 'add_event_driven';
+
 export interface ErrorHandler {
     qualify: (e: Error) => boolean;
     handle: (e: Error) => void;
 }
 
-export class ErrorHandlerService {
+
+export default class Overseer {
 
     errorHandlers: Array<any> = [];
+
+    eventContainer: EventContainer;
+
+    constructor() {
+        this.eventContainer = new EventContainer();
+    }
 
 
     watch(action: () => Promise<any> | void) {
         try {
+            this.eventContainer.addEventListener(
+                'error',
+                (e: Event) => this.handleError(e.data?.error)
+            );
             const result = action();
 
             if (result instanceof  Promise) {
@@ -41,4 +54,17 @@ export class ErrorHandlerService {
     addErrorHandler(errorHandler: ErrorHandler) {
         this.errorHandlers.push(errorHandler);
     }
+
+    dispatchError(error:string | Error): void {
+        this.eventContainer.dispatchEvent(
+            new Event(
+                'error',
+                {
+                    error: error
+                }
+            )
+        );
+    }
 }
+
+export const ErrorHandlerService = Overseer;
