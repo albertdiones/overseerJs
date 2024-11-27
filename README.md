@@ -1,4 +1,8 @@
-Error Handler Library with Event Driven support
+overseerJs
+
+function watcher with ff features:
+ 1. Custom error handling
+ 2. Event dispatch and handling support
 
 A library that could allow us to declare error handlers, of specific errors
 
