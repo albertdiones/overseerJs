@@ -3,7 +3,7 @@ import { Event, EventContainer } from 'add_event_driven';
 
 export interface ErrorHandler {
     qualify: (e: Error) => boolean;
-    handle: (e: Error) => void;
+    handle: (e: Error) => void | boolean;
 }
 
 
@@ -42,13 +42,14 @@ export default class Overseer {
                 ? new Error(e)
                 : e;
 
-        this.errorHandlers.forEach(
-            (errorHandler) => {
-                if (errorHandler.qualify(error)) {
-                    errorHandler.handle(error);
-                }
+        for (const errorHandler of this.errorHandlers) {
+            if (!errorHandler.qualify(error)) {
+                continue;
             }
-        );
+            if (errorHandler.handle(error) === false) {
+                break;
+            }
+        }
     }
 
     addErrorHandler(errorHandler: ErrorHandler) {
