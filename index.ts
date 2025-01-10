@@ -6,6 +6,10 @@ export interface ErrorHandler {
     handle: (e: Error) => void | boolean;
 }
 
+type ErrorEvent = {
+    error: Error;
+}
+
 
 export default class Overseer {
 
@@ -22,7 +26,7 @@ export default class Overseer {
         try {
             this.eventContainer.addEventListener(
                 'error',
-                (e: Event) => this.handleError(e.data?.error)
+                (e: Event) => this.handleError((e.data as ErrorEvent).error)
             );
             const result = action();
 
@@ -32,7 +36,7 @@ export default class Overseer {
                 )
             }
         }
-        catch (e: string | Error) {
+        catch (e: any | Error) {
             this.handleError(e);           
         }
     }
