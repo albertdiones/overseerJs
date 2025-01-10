@@ -1,5 +1,8 @@
 overseerJs
 
+Todos:
+* [ ] watch: return the result promise
+
 function watcher with ff features:
  1. Custom error handling
  2. Event dispatch and handling support
